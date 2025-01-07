@@ -3,7 +3,6 @@ import { getUserByClerkID } from '@/utils/auth';
 import NewEntryCard from '@/components/NewEntryCard';
 import EntryCard from '@/components/EntryCard';
 import Link from 'next/link';
-import { analyze } from '@/utils/ai';
 
 const getEntries = async () => {
     const user = await getUserByClerkID()
@@ -15,8 +14,6 @@ const getEntries = async () => {
             createdAt: 'desc'
         },
     })
-
-    await analyze('hello world')    
 
     return data
 }
