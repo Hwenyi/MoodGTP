@@ -2,10 +2,10 @@ import { getUserByClerkID } from "@/utils/auth"
 import { prisma } from "@/utils/db"
 import { NextResponse } from "next/server"
 
-export const PATCH = async (request, {params}) => {
+export const PATCH = async (request: Request, {params}) => {
 
     //请求体的content解析出来
-    const {content} = request.body
+    const {content} = await request.json()
 
     const user =  await getUserByClerkID()
 
@@ -22,4 +22,5 @@ export const PATCH = async (request, {params}) => {
     })
 
     return NextResponse.json({data: updatedEntry })
+
 }
