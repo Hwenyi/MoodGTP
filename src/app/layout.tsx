@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} h-screen overflow-x-hidden overflow-y-auto`}>{children}</body>
       </html>
     </ClerkProvider>
   )
