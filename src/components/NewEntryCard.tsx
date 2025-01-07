@@ -3,13 +3,16 @@
 import { createNewEntry } from "@/utils/api"
 import { useRouter } from "next/navigation"
 
-
 const NewEntryCard = () => {
 
     const router = useRouter()
 
     const handleOnClick =  async () => {
        const data = await createNewEntry()
+       if (!data?.id) {
+           alert("创建新条目失败")
+           return
+       }
        router.push(`/journal/${data.id}`)
     }
 

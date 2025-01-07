@@ -1,4 +1,5 @@
 import Editor from "@/components/Editor";
+import { analyze } from "@/utils/ai";
 import { getUserByClerkID } from "@/utils/auth";
 import { prisma } from "@/utils/db";
 
@@ -12,21 +13,29 @@ const getEntry = async(id) => {
                 userId: user.id,
                 id,
             }
-        }
+        },
+        include: {
+            analysis: true,
+        },
     })
 
     return entry
+    
 }
 
 const EntryPage = async ({params}) => {
 
     const entry = await getEntry(params.id)
 
+    const { mood = '', summary = '', subject = '', color = '', sentimentScore = 0, negative = false } =
+    entry?.analysis ?? {}
+
     const analysisDate = [
-        {name: 'Summary', value: ''},
-        {name: 'Subject', value: ''},
-        {name: 'Mood', value: ''},
-        {name: 'Negetive', value: 'False'},
+        {name: 'Mood', value: mood},
+        {name: 'Summary', value: summary},
+        {name: 'Subject', value: subject},
+        {name: 'sentimentScore', value: sentimentScore},
+        {name: 'Negetive', value: negative ? 'Yes' : 'No'},
     ]
 
     return (
@@ -35,14 +44,14 @@ const EntryPage = async ({params}) => {
                 <Editor entry={entry}/>
             </div>
             <div className="border-l border-black/10">
-            <div className="bg-blue-300 px-6 py-10">
+            <div className="px-6 py-10" style={{backgroundColor: color}}>
                 <h2 className="text-2xl">Analysis</h2>
             </div>
                 <div>
                     <ul>
                         {analysisDate.map((data) => (
                             <li key={data.name} 
-                                className="flex items-center justify-between border-b border-t border-black/10 px-2 py-4"
+                            className="px-2 py-4 border-t border-black/10 flex items-center justify-between"
                             >
                                 <span className="text-lg font-semibold">{data.name}</span>
                                 <span>{data.value}</span>

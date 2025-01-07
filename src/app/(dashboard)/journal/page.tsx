@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 const getEntries = async () => {
     const user = await getUserByClerkID()
-    const data = await prisma.journalEntry.findMany({
+    const entries = await prisma.journalEntry.findMany({
         where: {
             userId: user.id
         },
@@ -15,7 +15,7 @@ const getEntries = async () => {
         },
     })
 
-    return data
+    return entries
 }
 
 const JournalPage = async () => {

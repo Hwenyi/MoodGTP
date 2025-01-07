@@ -12,7 +12,6 @@ export const createNewEntry = async() => {
         return data.data
     }
 
-
 }
 
 export const updateEntry = async(id, content) => {

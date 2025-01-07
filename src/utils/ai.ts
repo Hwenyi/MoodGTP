@@ -39,9 +39,9 @@ export const analyze = async (prompt: string) => {
         
         const aiResponse = await llm.invoke(formattedPrompt);
         
-        const contentStr = JSON.stringify(aiResponse.content)
-            
-        const result = JSON.parse(contentStr);
+        const result = JSON.parse(aiResponse.content);
+
+        console.log(result)
 
         return result;
     } catch (error) {
