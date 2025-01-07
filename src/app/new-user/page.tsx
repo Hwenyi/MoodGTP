@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 
 const createNewUser = async() => {
 
-    const user = await currentUser()
+    const user = await currentUser() //从clerk获取当前用户
 
     const mathch = await prisma.user.findUnique({
         where: {
@@ -15,7 +15,7 @@ const createNewUser = async() => {
     if(!mathch) {
         await prisma.user.create({
             data: {
-                clerkId: user.id,
+                clerkId: user.id, //clerk分配的id设置为用户的clerkId
                 email: user?.emailAddresses[0].emailAddress,
             }
         })

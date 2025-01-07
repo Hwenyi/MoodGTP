@@ -23,8 +23,11 @@ const EntryPage = async ({params}) => {
     const entry = await getEntry(params.id)
 
     return (
-        <div className="w-full h-full">
-            <Editor entry={entry}/>
+        <div className="w-full h-full grid grid-cols-3">
+            <div className="col-span-2">
+                <Editor entry={entry}/>
+            </div>
+            <div className="border-l">Mood GPT Stuff</div>
         </div>
     )
 } 
