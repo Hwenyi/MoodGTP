@@ -19,9 +19,7 @@ const Editor = ({entry}) => {
 
     return (
         <div className="w-full h-full">
-            <div className="w-full h-16 flex items-center justify-center">
-                {isLoading ? 'Saving...' : 'Saved'}
-            </div>
+            {isLoading && <div>... loading</div>}
             <textarea 
                 value={value} 
                 onChange={(e) => setValue(e.target.value)}
