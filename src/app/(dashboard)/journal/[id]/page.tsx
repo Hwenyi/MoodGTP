@@ -24,7 +24,7 @@ const EntryPage = async ({params}) => {
 
     return (
         <div className="w-full h-full grid grid-cols-3">
-            <div className="col-span-2">
+            <div className="col-span-2 overflow-hidden">
                 <Editor entry={entry}/>
             </div>
             <div className="border-l">Mood GPT Stuff</div>

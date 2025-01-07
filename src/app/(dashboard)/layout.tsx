@@ -11,13 +11,13 @@ const DashboardLayout = ({ children }) => {
 
                 </div>
             </aside>
-            <div className="ml-[200px] h-full">
+            <div className="ml-[200px] h-full flex flex-col">
                 <header className="h-[60px] border-b border-black/10">
                     <div className="h-full w-full px-6 flex items-center justify-end">
                         <UserButton />
                     </div>
                 </header>
-                <div className="h-[calc(100vh-60px)]"> {children} </div>
+                <div className="flex-1 overflow-y-auto"> {children} </div>
             </div>
         </div>
     );

@@ -26,7 +26,7 @@ const Editor = ({entry}) => {
                 value={value} 
                 onChange={(e) => setValue(e.target.value)}
                 className="w-full h-full p-8 text-xl outline-none"
-            />
+            />  
         </div>
     )
 }
