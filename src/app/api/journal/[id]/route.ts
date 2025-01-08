@@ -25,7 +25,7 @@ export const PATCH = async (request: Request, {params}) => {
     const analysis = await analyze(updatedEntry.content)
 
     // 使用 upsert 时，需要分别写 create 与 update，而非 data
-    await prisma.analysis.upsert({
+    const  updated = await prisma.analysis.upsert({
         where: {
             entryId: updatedEntry.id
         },
@@ -38,6 +38,6 @@ export const PATCH = async (request: Request, {params}) => {
         }
     })
 
-    return NextResponse.json({data: updatedEntry })
+    return NextResponse.json({data: {...updatedEntry,analysis: updated}})
 
 }
