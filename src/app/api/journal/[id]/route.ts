@@ -24,6 +24,12 @@ export const PATCH = async (request: Request, {params}) => {
     
     const analysis = await analyze(updatedEntry.content)
 
+    const processedAnalysis = {
+        ...analysis,
+        negative: analysis.negative === 'true', // or !!analysis.negative
+        sentimentScore: parseFloat(analysis.sentimentScore),
+    }
+
     // 使用 upsert 时，需要分别写 create 与 update，而非 data
     const  updated = await prisma.analysis.upsert({
         where: {
@@ -31,10 +37,10 @@ export const PATCH = async (request: Request, {params}) => {
         },
         create: {
             entryId: updatedEntry.id,
-            ...analysis
+            ...processedAnalysis
         },
         update: {
-            ...analysis
+            ...processedAnalysis
         }
     })
 
