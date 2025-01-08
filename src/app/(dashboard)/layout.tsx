@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }) => {
         <div className="h-screen w-screen flex">
             <aside className="w-[200px] h-full border-r border-black/10">
                 <div className="px-4 my-4">
-                    <span className="text-3xl">Mood</span>
+                    <span className="text-3xl">MoodGPT</span>
                 </div>
                 <div>
                     <ul className="px-4">
