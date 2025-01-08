@@ -1,6 +1,6 @@
 'use client'
 import { updateEntry } from '@/utils/api';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import { useAutosave } from 'react-autosave';
 
 const Editor = ({entry}) => {
@@ -9,6 +9,8 @@ const Editor = ({entry}) => {
     const [isLoading, setIsLoading] = useState(false)
 
     const [analysis, setAnalysis] = useState(entry.analysis)
+
+    const initialContent = useRef(entry.content)
 
     const { mood = '', summary = '', subject = '', color = '', sentimentScore = 0, negative = false } =
     analysis ?? {}
@@ -24,10 +26,13 @@ const Editor = ({entry}) => {
     useAutosave({
         data: value,
         onSave: async (_value) => {
-            setIsLoading(true)
-            const updatedEntry = await updateEntry(entry.id, _value)
-            setAnalysis(updatedEntry.analysis)
-            setIsLoading(false)
+            // 只有当内容真正改变时才触发保存
+            if (_value !== initialContent.current) {
+                setIsLoading(true)
+                const updatedEntry = await updateEntry(entry.id, _value)
+                setAnalysis(updatedEntry.analysis)
+                setIsLoading(false)
+            }
         }
     })
 
